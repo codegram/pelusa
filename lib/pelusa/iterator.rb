@@ -4,12 +4,13 @@ module Pelusa
       check.call(node)
 
       if node.respond_to?(:each)
-        node.each { |node| NodeIterator.call(node, check) }
-      else
-        node.instance_variables.
-          map { |ivar| node.instance_variable_get(ivar) }.
-          each { |node| NodeIterator.call(node, check) }
+        return node.each { |node| NodeIterator.call(node, check) }
       end
+
+      ivars    = node.instance_variables
+      children = ivars.map { |ivar| node.instance_variable_get(ivar) }
+
+      return children.each { |node| NodeIterator.call(node, check) }
     end
 
     # Public: Initializes a new Iterator with a particular lint check.
