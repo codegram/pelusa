@@ -1,0 +1,2 @@
+class Pelusa::RubyReporter
+end
