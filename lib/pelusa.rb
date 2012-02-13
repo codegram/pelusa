@@ -9,4 +9,5 @@ end
 
 require 'pelusa/runner'
 require 'pelusa/analyzer'
+require 'pelusa/iterator'
 require 'pelusa/reporters/ruby_reporter'
