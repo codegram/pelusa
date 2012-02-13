@@ -2,10 +2,11 @@ module Pelusa
   class Runner
     # Public: Initializes an Analyzer.
     #
+    # lints    - The lints to check the code for.
     # reporter - The Reporter to use. Will be used to report back the results in
     #            methods such as #run.
-    def initialize(reporter=RubyReporter)
-      @parser   = Rubinius::Melbourne
+    def initialize(lints, reporter=RubyReporter)
+      @lints    = lints
       @reporter = reporter
     end
 
@@ -24,8 +25,9 @@ module Pelusa
     #
     # Returns a Report of the single run.
     def run_file(file)
-      ast    = @parser.parse_file(file)
-      report = Analyzer.new(ast, @reporter).analyze
+      ast      = Rubinius::Melbourne.parse_file(file)
+      analyzer = Analyzer.new(@lint, @reporter)
+      analyzer.analyze(ast)
     end
   end
 end
