@@ -1,24 +1,20 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "oobp/version"
+require "pelusa/version"
 
 Gem::Specification.new do |s|
-  s.name        = "oobp-rbx"
-  s.version     = OOBP::VERSION
+  s.name        = "pelusa"
+  s.version     = Pelusa::VERSION
   s.authors     = ["Josep M. Bach"]
   s.email       = ["josep.m.bach@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "http://github.com/codegram/pelusa"
+  s.summary     = %q{Static analysis Lint-type tool to enforce OO best practices in your Ruby code}
+  s.description = %q{Static analysis Lint-type tool to enforce OO best practices in your Ruby code}
 
-  s.rubyforge_project = "oobp-rbx"
+  s.rubyforge_project = "pelusa"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-
-  # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
 end

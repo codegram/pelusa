@@ -1,1 +1,1 @@
-rvm --create use rbx-head@oobp-rbx
+rvm use rbx-head

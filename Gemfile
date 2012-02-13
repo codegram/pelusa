@@ -1,4 +1,4 @@
 source "http://rubygems.org"
 
-# Specify your gem's dependencies in oobp-rbx.gemspec
+# Specify your gem's dependencies in pelusa.gemspec
 gemspec
