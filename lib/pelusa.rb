@@ -7,8 +7,8 @@ module Pelusa
   def self.run(argv)
     arguments = argv.dup
 
-    puts "  OO Best Practices"
-    puts "  ================="
+    puts "  \e[0;35mϟ\e[0m \e[0;32mPelusa \e[0;35mϟ\e[0m"
+    puts "  \e[0;37m----------\e[0m"
 
     if arguments.empty?
       arguments = Dir["**/*.rb"]
