@@ -8,7 +8,12 @@ class Pelusa::ClassAnalyzer
 
   # Public: Analyzes a class with a series of lints.
   #
-  # Returns an Analysis.
+  # lints - The lints to check for.
+  #
+  # Returns a collection of Analysis, one for each lint.
   def analyze(lints)
+    lints.map do |lint|
+      lint.check(@klass)
+    end
   end
 end
