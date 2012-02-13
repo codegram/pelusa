@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 
-require 'pelusa'
+require 'old_pelusa'
 
-Pelusa.run(ARGV)
+OldPelusa.run(ARGV)

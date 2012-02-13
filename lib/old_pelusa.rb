@@ -3,7 +3,7 @@ require "pelusa/version"
 require 'pp'
 require 'set'
 
-module Pelusa
+module OldPelusa
   def self.run(argv)
     arguments = argv.dup
 
