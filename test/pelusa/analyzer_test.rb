@@ -17,15 +17,17 @@ module Pelusa
             end
           end
         """.to_ast
+
         @reporter = Struct.new(:results)
-        @analyzer = Analyzer.new(@ast, @reporter)
+        lints = stub
+        @analyzer = Analyzer.new(lints, @reporter)
       end
 
       it 'analyzes an ast and returns a report' do
         class_analyzer = stub(analyze: 'result')
         ClassAnalyzer.stubs(:new).returns class_analyzer
 
-        @analyzer.analyze.results.must_equal ['result', 'result']
+        @analyzer.analyze(@ast).results.must_equal ['result', 'result']
       end
     end
   end
