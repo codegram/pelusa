@@ -57,6 +57,12 @@ At some point it will be user-extendable by default, but for now you are better
 off forking the project and adding your own lints as you need them in your team
 (or removing some default ones you don't like).
 
+## Special mentions
+
+The beautiful UTF-8 flowers before each lint ran are taken from [Testosterone](http://github.com/masylum/testosterone),
+a project by [@masylum](http://twitter.com/masylum). They're really beautiful,
+thanks!!!
+
 ## Contributing
 
 You can easily contribute to Pelusa. Its codebase is simple and
