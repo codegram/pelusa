@@ -9,6 +9,7 @@ module Pelusa
 
     def report
       puts "  \e[0;36m#{@filename}\e[0m"
+      puts
 
       @reports.each do |class_report|
         print_report(class_report)
@@ -20,13 +21,13 @@ module Pelusa
     def print_report(class_report)
       class_name = class_report.class_name
 
-      puts
       puts "  class #{class_name}"
 
       analyses = class_report.analyses
       analyses.each do |analysis|
         print_analysis(analysis)
       end
+      puts
     end
 
     def print_analysis(analysis)
