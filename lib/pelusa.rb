@@ -17,6 +17,7 @@ require 'pelusa/class_analyzer'
 require 'pelusa/report'
 require 'pelusa/iterator'
 
+
 require 'pelusa/reporters/reporter'
 require 'pelusa/reporters/stdout_reporter'
 require 'pelusa/reporters/ruby_reporter'
