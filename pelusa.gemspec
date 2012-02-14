@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Josep M. Bach"]
   s.email       = ["josep.m.bach@gmail.com"]
   s.homepage    = "http://github.com/codegram/pelusa"
-  s.summary     = %q{Static analysis Lint-type tool to enforce OO best practices in your Ruby code}
-  s.description = %q{Static analysis Lint-type tool to enforce OO best practices in your Ruby code}
+  s.summary     = %q{Static analysis Lint-type tool to improve your OO Ruby code}
+  s.description = %q{Static analysis Lint-type tool to improve your OO Ruby code}
 
   s.rubyforge_project = "pelusa"
 
