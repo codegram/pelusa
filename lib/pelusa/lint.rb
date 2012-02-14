@@ -5,6 +5,7 @@ require 'pelusa/lint/demeter_law'
 require 'pelusa/lint/indentation_level'
 require 'pelusa/lint/else_clauses'
 require 'pelusa/lint/properties'
+require 'pelusa/lint/collection_wrappers'
 
 module Pelusa
   # Public: A Lint is a quality standard, applicable on a given piece of code to
@@ -19,6 +20,7 @@ module Pelusa
         IndentationLevel,
         ElseClauses,
         Properties,
+        CollectionWrappers,
       ]
     end
   end
