@@ -12,7 +12,8 @@ class Pelusa::ClassAnalyzer
   #
   # Returns a collection of Analysis, one for each lint.
   def analyze(lints)
-    lints.map do |lint|
+    lints.map do |lint_class|
+      lint = lint_class.new
       lint.check(@klass)
     end
   end

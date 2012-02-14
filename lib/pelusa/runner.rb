@@ -26,7 +26,7 @@ module Pelusa
     # Returns a Report of the single run.
     def run_file(file)
       ast      = Rubinius::Melbourne.parse_file(file)
-      analyzer = Analyzer.new(@lint, @reporter)
+      analyzer = Analyzer.new(@lints, @reporter)
       analyzer.analyze(ast)
     end
   end

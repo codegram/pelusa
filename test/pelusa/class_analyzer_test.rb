@@ -5,8 +5,8 @@ module Pelusa
     describe '#analyze' do
       before do
         @lints = [
-          stub(check: true),
-          stub(check: true)
+          stub(new: stub(check: true)),
+          stub(new: stub(check: true))
         ]
         @klass    = stub
         @analyzer = ClassAnalyzer.new(@klass)
