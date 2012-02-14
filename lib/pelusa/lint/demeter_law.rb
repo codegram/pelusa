@@ -9,12 +9,10 @@ module Pelusa
         initialize
         iterate_lines!(klass)
 
-        if @violations.empty?
-          SuccessfulAnalysis.new(name)
-        else
-          FailedAnalysis.new(name, @violations) do |violations|
-            "There are #{violations.length} Demeter law violations in lines #{violations.to_a.join(', ')}."
-          end
+        return SuccessfulAnalysis.new(name) if @violations.empty?
+
+        FailedAnalysis.new(name, @violations) do |violations|
+          "There are #{violations.length} Demeter law violations in lines #{violations.to_a.join(', ')}."
         end
       end
 

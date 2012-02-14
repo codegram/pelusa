@@ -8,12 +8,11 @@ module Pelusa
       def check(klass)
         initialize
         iterate_lines!(klass)
-        if @ivars.length < limit
-          SuccessfulAnalysis.new(name)
-        else
-          FailedAnalysis.new(name, @ivars) do |ivars|
-            "This class uses #{ivars.length} instance variables: #{ivars.to_a.join(', ')}."
-          end
+
+        return SuccessfulAnalysis.new(name) if @ivars.length < limit
+
+        FailedAnalysis.new(name, @ivars) do |ivars|
+          "This class uses #{ivars.length} instance variables: #{ivars.to_a.join(', ')}."
         end
       end
 

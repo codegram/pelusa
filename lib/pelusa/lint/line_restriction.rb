@@ -8,12 +8,11 @@ module Pelusa
       def check(klass)
         initialize
         iterate_lines!(klass)
-        if lines < limit
-          SuccessfulAnalysis.new(name)
-        else
-          FailedAnalysis.new(name, lines) do |lines|
-            "This class has #{lines} lines."
-          end
+
+        return SuccessfulAnalysis.new(name) if lines < limit
+
+        FailedAnalysis.new(name, lines) do |lines|
+          "This class has #{lines} lines."
         end
       end
 

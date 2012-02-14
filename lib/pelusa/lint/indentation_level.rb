@@ -8,12 +8,11 @@ module Pelusa
       def check(klass)
         initialize
         iterate_lines!(klass)
-        if @violations.empty?
-          SuccessfulAnalysis.new(name)
-        else
-          FailedAnalysis.new(name, @violations) do |violations|
-            "There's too much indentation in lines #{violations.to_a.join(', ')}."
-          end
+
+        return SuccessfulAnalysis.new(name) if @violations.empty?
+
+        FailedAnalysis.new(name, @violations) do |violations|
+          "There's too much indentation in lines #{violations.to_a.join(', ')}."
         end
       end
 
