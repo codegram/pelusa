@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = Dir["test/**/*.rb"]
-  s.executables   = ["bin/pelusa"]
+  s.executables   = ["pelusa"]
   s.require_paths = ["lib"]
 
   s.add_development_dependency 'mocha'
