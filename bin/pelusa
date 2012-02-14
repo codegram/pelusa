@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-$:.unshift(File.dirname(__FILE__) + '/../lib')
-
-require 'pelusa'
-
-cli = Pelusa::Cli.new(ARGV)
-exit cli.run
