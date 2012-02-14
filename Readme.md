@@ -37,9 +37,9 @@ Or just run all the Ruby files (`**/*.rb`) without arguments:
 
 This project was born as an inspiration from [one of our Monday
 Talks](http://talks.codegram.com/object-oriented-nirvana) about Object Oriented
-Nirvana by @oriolgual. After reading [this blog
+Nirvana by [@oriolgual](http://twitter.com/oriolgual). After reading [this blog
 post](http://binstock.blogspot.com/2008/04/perfecting-oos-small-classes-and-short.html)
-he prepared his talk and I (Txus) found it interesting, so I explored the
+he prepared his talk and I ([@txustice](http://twitter.com/txustice)) found it interesting, so I explored the
 possibility of programmatically linting these practices on a Ruby project. This
 *doesn't mean* that any of us thinks these are the true and only practices of
 Object Orientation, it's just a set of constraints that are fun to follow to
