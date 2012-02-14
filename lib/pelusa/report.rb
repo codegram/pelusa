@@ -19,5 +19,9 @@ module Pelusa
     def analyses
       @analyses
     end
+
+    def successful?
+      @analyses.all? { |analysis| analysis.successful? }
+    end
   end
 end

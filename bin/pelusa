@@ -3,4 +3,5 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 
 require 'pelusa'
 
-Pelusa.run(ARGV)
+cli = Pelusa::Cli.new(ARGV)
+exit cli.run

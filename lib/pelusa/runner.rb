@@ -14,11 +14,18 @@ module Pelusa
     #
     # Returns an Array of Reports of those file runs.
     def run(files)
-      values = Array(files).map do |file|
+      reporters = Array(files).map do |file|
         run_file(file)
       end
       @reporter.print_banner
-      values.map(&:report)
+
+      exit_code = 0
+
+      reporters.each do |reporter|
+        reporter.report
+        exit_code = 1 unless reporter.successful?
+      end
+      exit_code
     end
 
     # Public: Runs the analyzer on a single file.

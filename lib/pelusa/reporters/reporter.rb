@@ -14,5 +14,9 @@ module Pelusa
     def report
       raise NotImplementedError
     end
+
+    def successful?
+      @reports.all? { |report| report.successful? }
+    end
   end
 end

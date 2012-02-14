@@ -3,15 +3,12 @@ module Pelusa
   #
   # Returns an Array of results of a given Reporter
   def self.run(files=[], reporter=StdoutReporter, lints=Lint.all)
-    if files.empty?
-      files = Dir["**/*.rb"]
-    end
-
     runner = Runner.new(lints, reporter)
     runner.run(files)
   end
 end
 
+require 'pelusa/cli'
 require 'pelusa/runner'
 require 'pelusa/analyzer'
 require 'pelusa/lint'
