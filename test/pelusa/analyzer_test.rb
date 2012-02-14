@@ -23,7 +23,7 @@ module Pelusa
       end
 
       it 'analyzes an ast and returns a report' do
-        result = @analyzer.analyze(@ast)
+        result = @analyzer.analyze(@ast).report
         result[:filename].must_equal "foo.rb"
         result[:Foo]["Is below 50 lines"][:status].must_equal "successful"
         result[:Bar]["Is below 50 lines"][:status].must_equal "successful"

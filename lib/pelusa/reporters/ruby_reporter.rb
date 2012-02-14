@@ -1,11 +1,9 @@
-module Pelusa
-  class RubyReporter
-    def initialize(filename)
-      @filename = filename
-    end
+# encoding: utf-8
 
-    def report(reports)
-      hash = reports.inject({}) do |acc, report|
+module Pelusa
+  class RubyReporter < Reporter
+    def report
+      hash = @reports.inject({}) do |acc, report|
         class_name = report.class_name
         acc[class_name] = hashify_report(report)
         acc

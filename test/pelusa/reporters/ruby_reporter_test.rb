@@ -15,10 +15,11 @@ module Pelusa
         ]
 
         @reporter = RubyReporter.new('foo.rb')
+        @reporter.reports = @reports
       end
 
       it 'returns a hashified version of the reports' do
-        @reporter.report(@reports).must_equal({
+        @reporter.report.must_equal({
           "Foo" => {
             "Is below 50 lines" => {
               status: "failed",

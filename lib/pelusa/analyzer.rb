@@ -23,7 +23,8 @@ module Pelusa
 
         Report.new(class_name, analysis)
       end
-      @reporter.report(reports)
+      @reporter.reports = reports
+      @reporter
     end
 
     #######

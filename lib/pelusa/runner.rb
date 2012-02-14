@@ -19,7 +19,8 @@ module Pelusa
       end
       threads.map!(&:join)
       values = threads.map(&:value)
-      values.reject(&:empty?)
+      @reporter.print_banner
+      values.map(&:report)
     end
 
     # Public: Runs the analyzer on a single file.

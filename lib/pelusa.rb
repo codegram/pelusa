@@ -2,7 +2,7 @@ module Pelusa
   # Public: Runs the runner on a set of files.
   #
   # Returns an Array of results of a given Reporter
-  def self.run(files=[], reporter=RubyReporter, lints=Lint.all)
+  def self.run(files=[], reporter=StdoutReporter, lints=Lint.all)
     if files.empty?
       files = Dir["**/*.rb"]
     end
@@ -19,4 +19,7 @@ require 'pelusa/analysis'
 require 'pelusa/class_analyzer'
 require 'pelusa/report'
 require 'pelusa/iterator'
+
+require 'pelusa/reporters/reporter'
+require 'pelusa/reporters/stdout_reporter'
 require 'pelusa/reporters/ruby_reporter'
