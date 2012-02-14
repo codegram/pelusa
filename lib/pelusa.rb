@@ -3,7 +3,7 @@ module Pelusa
   #
   # Returns an Array of results of a given Reporter
   def self.run(files=[], reporter=RubyReporter, lints=Lint.all)
-    if Array(files).empty?
+    if files.empty?
       files = Dir["**/*.rb"]
     end
 
