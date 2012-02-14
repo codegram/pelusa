@@ -5,7 +5,7 @@ module Pelusa
     # lints    - The lints to check the code for.
     # reporter - The Reporter to use. Will be used to report back the results in
     #            methods such as #run.
-    def initialize(lints, reporter=RubyReporter)
+    def initialize(lints, reporter)
       @lints    = lints
       @reporter = reporter
     end

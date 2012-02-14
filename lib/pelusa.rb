@@ -1,13 +1,13 @@
 module Pelusa
   # Public: Runs the runner on a set of files.
   #
-  # Returns an Array of Reports of those file runs.
-  def self.run(files = [], lints=Lint.all)
-    if files.empty?
+  # Returns an Array of results of a given Reporter
+  def self.run(files=[], reporter=RubyReporter, lints=Lint.all)
+    if Array(files).empty?
       files = Dir["**/*.rb"]
     end
 
-    runner = Runner.new(lints)
+    runner = Runner.new(lints, reporter)
     runner.run(files)
   end
 end
