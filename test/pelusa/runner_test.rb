@@ -4,7 +4,7 @@ module Pelusa
   describe Runner do
     describe '#run' do
       before do
-        @report = stub
+        @report = stub(empty?: false)
         analyzer = stub(:analyze => @report)
         Analyzer.stubs(:new).returns analyzer
       end

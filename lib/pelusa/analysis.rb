@@ -19,6 +19,10 @@ module Pelusa
     def message
       ""
     end
+
+    def status
+      successful? ? "successful" : "failed"
+    end
   end
 
   class SuccessfulAnalysis < Analysis

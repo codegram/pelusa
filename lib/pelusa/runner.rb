@@ -18,16 +18,30 @@ module Pelusa
         Thread.new { run_file(file) }
       end
       threads.map!(&:join)
-      threads.map(&:value)
+      values = threads.map(&:value)
+      values.reject(&:empty?)
     end
 
     # Public: Runs the analyzer on a single file.
     #
     # Returns a Report of the single run.
     def run_file(file)
-      ast      = Rubinius::Melbourne.parse_file(file)
-      analyzer = Analyzer.new(@lints, @reporter)
+      ast      = parser.parse_file(file)
+      analyzer = Analyzer.new(@lints, @reporter, file)
       analyzer.analyze(ast)
+    end
+
+    #######
+    private
+    #######
+
+    # Internal: Returns the parser used to analyze the files, depending on the
+    # current Rubinius mode.
+    #
+    # Returns a Rubinius::Melbourne parser.
+    def parser
+      return Rubinius::Melbourne19 if ENV['RBXOPT'].include?("-X19")
+      Rubinius::Melbourne
     end
   end
 end

@@ -4,9 +4,10 @@ module Pelusa
     #
     # ast      - The abstract syntax tree to analyze.
     # reporter - The class that will be used to create the report.
-    def initialize(lints, reporter)
+    # filename - The name of the file that we're analyzing.
+    def initialize(lints, reporter, filename)
       @lints    = lints
-      @reporter = reporter
+      @reporter = reporter.new(filename)
     end
 
     # Public: Makes a report out of several classes contained in the AST.
@@ -15,11 +16,14 @@ module Pelusa
     #
     # Returns a Report of all the classes.
     def analyze(ast)
-      results = extract_classes(ast).map do |klass|
+      reports = extract_classes(ast).map do |klass|
         class_analyzer = ClassAnalyzer.new(klass)
-        class_analyzer.analyze(@lints)
+        class_name     = class_analyzer.class_name
+        analysis       = class_analyzer.analyze(@lints)
+
+        Report.new(class_name, analysis)
       end
-      @reporter.new(results)
+      @reporter.report(reports)
     end
 
     #######

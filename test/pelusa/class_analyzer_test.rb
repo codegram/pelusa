@@ -8,12 +8,18 @@ module Pelusa
           stub(new: stub(check: true)),
           stub(new: stub(check: true))
         ]
-        @klass    = stub
+        @klass    = stub(name: stub(name: "Foo"))
         @analyzer = ClassAnalyzer.new(@klass)
       end
 
       it 'analyzes a Class node for a series of lints' do
         @analyzer.analyze(@lints).must_equal [true, true]
+      end
+
+      describe '#class_name' do
+        it 'returns the name of the analyzed class' do
+          @analyzer.class_name.must_equal "Foo"
+        end
       end
     end
   end

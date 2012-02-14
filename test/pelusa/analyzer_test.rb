@@ -4,7 +4,7 @@ module Pelusa
   describe Analyzer do
     describe '#analyze' do
       before do
-        @ast      = """
+        @ast = """
           class Foo
             def bar
               123
@@ -18,16 +18,15 @@ module Pelusa
           end
         """.to_ast
 
-        @reporter = Struct.new(:results)
         lints = stub
-        @analyzer = Analyzer.new(lints, @reporter)
+        @analyzer = Analyzer.new([Lint::LineRestriction], RubyReporter, "foo.rb")
       end
 
       it 'analyzes an ast and returns a report' do
-        class_analyzer = stub(analyze: 'result')
-        ClassAnalyzer.stubs(:new).returns class_analyzer
-
-        @analyzer.analyze(@ast).results.must_equal ['result', 'result']
+        result = @analyzer.analyze(@ast)
+        result[:filename].must_equal "foo.rb"
+        result[:Foo]["Is below 50 lines"][:status].must_equal "successful"
+        result[:Bar]["Is below 50 lines"][:status].must_equal "successful"
       end
     end
   end

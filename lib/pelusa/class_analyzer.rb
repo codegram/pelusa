@@ -6,6 +6,14 @@ class Pelusa::ClassAnalyzer
     @klass = klass
   end
 
+  # Public: Returns the name of the Class being analyzed.
+  #
+  # Returns the String name.
+  def class_name
+    name = @klass.name
+    name.name
+  end
+
   # Public: Analyzes a class with a series of lints.
   #
   # lints - The lints to check for.
