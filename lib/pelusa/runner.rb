@@ -14,11 +14,9 @@ module Pelusa
     #
     # Returns an Array of Reports of those file runs.
     def run(files)
-      threads = Array(files).map do |file|
-        Thread.new { run_file(file) }
+      values = Array(files).map do |file|
+        run_file(file)
       end
-      threads.map!(&:join)
-      values = threads.map(&:value)
       @reporter.print_banner
       values.map(&:report)
     end
