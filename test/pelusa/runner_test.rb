@@ -9,12 +9,18 @@ module Pelusa
         Analyzer.stubs(:new).returns analyzer
       end
 
-      it 'runs a single file' do
-        Pelusa.run(__FILE__).must_equal [true]
+      describe 'when the reports are successful' do
+        it 'returns 0' do
+          @report.stubs(successful?: true)
+          Pelusa.run(__FILE__).must_equal 0
+        end
       end
 
-      it 'runs multiple files' do
-        Pelusa.run([__FILE__, __FILE__]).must_equal [true, true]
+      describe 'when the reports have failed' do
+        it 'returns 1' do
+          @report.stubs(successful?: false)
+          Pelusa.run(__FILE__).must_equal 1
+        end
       end
     end
   end

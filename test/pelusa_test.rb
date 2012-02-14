@@ -10,7 +10,7 @@ module Pelusa
 
       it 'invokes a new Runner on all Ruby files' do
         Runner.expects(:new).with(Lint.all, StdoutReporter).returns @runner
-        @runner.expects(:run).with(Dir["**/*.rb"]).returns @output
+        @runner.expects(:run).with([]).returns @output
 
         Pelusa.run.must_equal @output
       end
