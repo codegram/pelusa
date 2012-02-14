@@ -25,6 +25,11 @@ either.
     rvm use rbx-head
     gem install pelusa
 
+To run pelusa, you must run Rubinius in 1.9 mode. To do this, export this
+environment variable:
+
+    export RBXOPT=-X19
+
 Then go to a directory where you have some Ruby code, and type this:
 
     pelusa path/to/some_file.rb
