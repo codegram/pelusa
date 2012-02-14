@@ -1,0 +1,4 @@
+env:
+ - RBXOPT=-X19
+rvm:
+  - rbx-2.0
