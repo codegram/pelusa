@@ -7,6 +7,7 @@ require 'pelusa/lint/else_clauses'
 require 'pelusa/lint/properties'
 require 'pelusa/lint/collection_wrappers'
 require 'pelusa/lint/short_identifiers'
+require 'pelusa/lint/case_statements'
 
 module Pelusa
   # Public: A Lint is a quality standard, applicable on a given piece of code to
