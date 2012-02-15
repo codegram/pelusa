@@ -1,1 +1,2 @@
 rvm use rbx-head@pelusa
+export RBXOPT=-X19
