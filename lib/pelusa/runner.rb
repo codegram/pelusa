@@ -41,13 +41,11 @@ module Pelusa
     private
     #######
 
-    # Internal: Returns the parser used to analyze the files, depending on the
-    # current Rubinius mode.
+    # Internal: Returns the Melbourne 1.9 parser.
     #
     # Returns a Rubinius::Melbourne parser.
     def parser
-      return Rubinius::Melbourne19 if ENV['RBXOPT'].include?("-X19")
-      Rubinius::Melbourne
+      Rubinius::Melbourne19
     end
   end
 end
