@@ -1,2 +1,2 @@
-rvm use --create rbx-head@pelusa
+rvm use --create rbx@pelusa
 RBXOPT="$RBXOPT -X19"
