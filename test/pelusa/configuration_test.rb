@@ -21,14 +21,24 @@ module Pelusa
     end
 
     describe '#[]' do
-      let(:lint_configuration) { configuration['LineRestriction'] }
+      describe 'when lint configuration exists' do
+        let(:lint_configuration) { configuration['LineRestriction'] }
 
-      it 'returns a configuration hash for the given lint' do
-        lint_configuration.must_be_instance_of(Hash)
+        it 'returns a configuration hash for the given lint' do
+          lint_configuration.must_be_instance_of(Hash)
+        end
+
+        it 'must return valid configuration' do
+          lint_configuration['limit'].must_equal(80)
+        end
       end
 
-      it 'must return valid configuration' do
-        lint_configuration['limit'].must_equal(80)
+      describe "when lint configuration doesn't exist" do
+        let(:lint_configuration) { configuration['DemeterLaw'] }
+
+        it 'returns an empty configuration hash' do
+          lint_configuration.must_equal({})
+        end
       end
     end
   end
