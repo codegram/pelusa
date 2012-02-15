@@ -1,6 +1,12 @@
 #!/usr/bin/env ruby
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 
+warning = %q{Pelusa needs Rubinius to run in 1.9 mode.
+Please either `export RBXOPT=-X19` before running it or compile Rubinius with
+1.9 support enabled by default.}
+
+abort warning unless Rubinius.ruby19?
+
 require 'pelusa'
 
 cli = Pelusa::Cli.new(ARGV)
