@@ -8,6 +8,7 @@ module Pelusa
   end
 end
 
+require 'pelusa/configuration'
 require 'pelusa/cli'
 require 'pelusa/runner'
 require 'pelusa/analyzer'

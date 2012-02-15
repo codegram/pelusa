@@ -1,0 +1,6 @@
+sources: lib/**/*.rb
+lints:
+  ElseClauses:
+    enabled: false
+  LineRestriction:
+    enabled: true
