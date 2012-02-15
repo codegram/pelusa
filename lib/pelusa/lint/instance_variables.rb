@@ -23,7 +23,7 @@ module Pelusa
       end
 
       def limit
-        3
+        Pelusa.configuration['InstanceVariables'].fetch('limit', 3)
       end
 
       def iterate_lines!(klass)
