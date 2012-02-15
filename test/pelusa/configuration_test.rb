@@ -19,5 +19,17 @@ module Pelusa
         configuration.enabled_lints.must_equal(enabled_lints)
       end
     end
+
+    describe '#[]' do
+      let(:lint_configuration) { configuration['LineRestriction'] }
+
+      it 'returns a configuration hash for the given lint' do
+        lint_configuration.must_be_instance_of(Hash)
+      end
+
+      it 'must return valid configuration' do
+        lint_configuration['limit'].must_equal(80)
+      end
+    end
   end
 end

@@ -4,3 +4,4 @@ lints:
     enabled: false
   LineRestriction:
     enabled: true
+    limit: 80

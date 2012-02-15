@@ -15,6 +15,11 @@ module Pelusa
     end
 
     # @api public
+    def [](name)
+      for_lint(name)
+    end
+
+    # @api public
     def sources
       @_configuration['sources']
     end
@@ -24,11 +29,16 @@ module Pelusa
       (Lint.all - disabled_lints).uniq
     end
 
+    # @api public
+    def for_lint(name)
+      lints.fetch(name, {})
+    end
+
   private
 
     # @api private
     def lints
-      @_configuration.fetch('lints', [])
+      @_configuration.fetch('lints', {})
     end
 
     # @api private
