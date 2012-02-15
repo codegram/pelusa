@@ -21,7 +21,9 @@ module Pelusa
       if glob = @args.detect { |arg| arg =~ /\*/ }
         return Dir[glob]
       end
-      @args.select { |arg| arg =~ /\.rb/ }
+      _files = @args.select { |arg| arg =~ /\.rb/ }
+      _files = Dir[Pelusa.configuration.sources] if _files.empty?
+      _files
     end
   end
 end
