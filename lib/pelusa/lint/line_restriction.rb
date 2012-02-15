@@ -23,7 +23,7 @@ module Pelusa
       end
 
       def limit
-        50
+        Pelusa.configuration['LineRestriction'].fetch('limit', 50)
       end
 
       def lines
