@@ -1,4 +1,5 @@
-# pelusa - a Ruby Lint to improve your OO skills [![Build Status](https://secure.travis-ci.org/codegram/pelusa.png)](http://travis-ci.org/codegram/pelusa)
+# pelusa - /pe 'lu sa/ [![Build Status](https://secure.travis-ci.org/codegram/pelusa.png)](http://travis-ci.org/codegram/pelusa)
+## A Ruby Lint to improve your OO skills
 
 Pelusa is a static analysis tool and framework to inspect your code style and
 notify you about possible red flags or missing best practices.
