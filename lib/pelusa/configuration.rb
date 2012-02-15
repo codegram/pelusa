@@ -11,7 +11,14 @@ module Pelusa
     #
     # @api public
     def initialize(yaml_path = YAML_PATH)
-      @_configuration = YAML.load_file(yaml_path).freeze
+      if File.exist?(yaml_path)
+        @_configuration = YAML.load_file(yaml_path).freeze
+      end
+    end
+
+    # @api public
+    def present?
+      not @_configuration.nil?
     end
 
     # @api public
