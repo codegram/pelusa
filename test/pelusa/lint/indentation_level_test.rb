@@ -41,6 +41,26 @@ module Pelusa
             analysis.failed?.must_equal true
           end
         end
+
+        describe "when there is method which produces nested list" do
+          it 'returns a FailureAnalysis' do
+            klass = """
+            class Foo
+              def initialize
+                if test
+                  a = [
+                    (1..3).map do |num|
+                      num
+                    end
+                  ]
+                end
+              end
+            end""".to_ast
+
+            analysis = @lint.check klass
+            analysis.failed?.must_equal true
+          end
+        end
       end
     end
   end
