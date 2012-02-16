@@ -21,9 +21,9 @@ Here's a sample of pelusa linting on its own code base:
 Pelusa happens to be Spanish for the word "Lint". Yeah, I couldn't believe it
 either.
 
-## Install and usage
+## Installation and usage
 
-    rvm use rbx-head
+    rvm use rbx
     gem install pelusa
 
 To run pelusa, you must run Rubinius in 1.9 mode. To do this, export this
