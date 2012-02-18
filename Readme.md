@@ -1,4 +1,4 @@
-# pelusa - /pe 'lu sa/ [![Build Status](https://secure.travis-ci.org/codegram/pelusa.png)](http://travis-ci.org/codegram/pelusa)
+# pelusa - /pe 'lu sa/ [![Build Status](https://secure.travis-ci.org/codegram/pelusa.png)](http://travis-ci.org/codegram/pelusa) [![Dependency Status](https://gemnasium.com/codegram/pelusa.png)](https://gemnasium.com/codegram/pelusa)
 ## A Ruby Lint to improve your OO skills
 
 Pelusa is a static analysis tool and framework to inspect your code style and
