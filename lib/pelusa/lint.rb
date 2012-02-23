@@ -8,6 +8,7 @@ require 'pelusa/lint/properties'
 require 'pelusa/lint/collection_wrappers'
 require 'pelusa/lint/short_identifiers'
 require 'pelusa/lint/case_statements'
+require 'pelusa/lint/many_arguments'
 
 module Pelusa
   # Public: A Lint is a quality standard, applicable on a given piece of code to
@@ -24,6 +25,7 @@ module Pelusa
         Properties,
         CollectionWrappers,
         ShortIdentifiers,
+        ManyArguments
       ]
     end
   end
