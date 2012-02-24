@@ -39,6 +39,26 @@ Or just run all the Ruby files (`**/*.rb`) without arguments:
 
     pelusa
 
+## Configuration
+
+You can use per-project configurations as per which lints to use and their
+configurations. Just put a `.pelusa.yml` file the root directory of your
+project, like this:
+
+    sources: lib/**/*.rb
+    lints:
+      InstanceVariables:
+        limit: 5
+      LineRestriction:
+        limit: 80
+        exclude:
+          - SomeClass
+      Properties:
+        enabled: false
+
+This allows you to disable lints, configure their variables, and exclude some
+classes from being analyzed by certain lints.
+
 ## About the default set of Lints
 
 This project was born as an inspiration from [one of our Monday
