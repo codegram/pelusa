@@ -46,7 +46,12 @@ module Pelusa
     #   Pelusa.configuration.sources # => lib/**/*.rb
     #
     def sources
-      @_configuration['sources']
+      default = "lib/**/*.rb"
+      if present?
+        @_configuration.fetch('sources') { default }
+      else
+        default
+      end
     end
 
     # Public: Returns an Array of enabled lints

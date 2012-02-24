@@ -21,6 +21,13 @@ module Pelusa
       it 'returns path to sources' do
         configuration.sources.must_equal 'lib/**/*.rb'
       end
+
+      describe 'by default' do
+        it 'returns lib/**/*.rb' do
+          empty_configuration = Pelusa::Configuration.new("unexistent_yml")
+          empty_configuration.sources.must_equal 'lib/**/*.rb'
+        end
+      end
     end
 
     describe '#enabled_lints' do
