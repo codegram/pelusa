@@ -36,6 +36,48 @@ module Pelusa
             analysis.failed?.must_equal true
           end
         end
+
+        describe 'when instantiating a class' do
+          it 'returns a SuccessAnalysis' do
+            klass = """
+            class Foo
+              def execute
+                Bar.new.execute
+              end
+            end""".to_ast
+
+            analysis = @lint.check(klass)
+            analysis.successful?.must_equal true              
+          end
+        end
+
+        describe 'when chaining operations on an Enumerable' do
+          it 'returns a SuccessAnalysis' do
+            klass = """
+            class Foo
+              def execute
+                [1,2,3].map(&:object_id).map(&:object_id)
+              end
+            end""".to_ast
+
+            analysis = @lint.check(klass)
+            analysis.successful?.must_equal true              
+          end
+        end
+      end
+
+      describe 'when chaining Fixnum operations' do
+        it 'returns a SuccessAnalysis' do
+          klass = """
+          class Foo
+            def execute
+              1 + 2 + 3 + 4
+            end
+          end""".to_ast
+
+          analysis = @lint.check(klass)
+          analysis.successful?.must_equal true              
+        end
       end
     end
   end
