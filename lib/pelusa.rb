@@ -3,7 +3,7 @@ module Pelusa
   #
   # Returns an Array of results of a given Reporter
   def self.run(files=[], reporter=StdoutReporter)
-    lints = configuration.enabled_lints
+    lints  = configuration.enabled_lints
     runner = Runner.new(lints, reporter)
     runner.run(files)
   end

@@ -6,17 +6,6 @@ module Pelusa
       Pelusa::Configuration.new("#{FIXTURES_PATH}/sample_config_one.yml")
     end
 
-    describe "#present?" do
-      it "returns false when configuration doesn't file exists" do
-        configuration = Pelusa::Configuration.new("#{FIXTURES_PATH}/not_here.yml")
-        configuration.present?.must_equal(false)
-      end
-
-      it "returns false when configuration file exists" do
-        configuration.present?.must_equal(true)
-      end
-    end
-
     describe '#sources' do
       it 'returns path to sources' do
         configuration.sources.must_equal 'lib/**/*.rb'
@@ -25,7 +14,7 @@ module Pelusa
       describe 'by default' do
         it 'returns lib/**/*.rb' do
           empty_configuration = Pelusa::Configuration.new("unexistent_yml")
-          empty_configuration.sources.must_equal 'lib/**/*.rb'
+          empty_configuration.sources.must_equal Pelusa::Configuration::DEFAULT_SOURCES
         end
       end
     end
