@@ -4,28 +4,20 @@ module Pelusa
   # Examples
   #
   #   configuration = Pelusa::Configuration.new('my_pelusa_config.yml')
-  #   configuration.present? # => true
   #
   class Configuration
-    YAML_PATH = './.pelusa.yml'
+    YAML_PATH       = './.pelusa.yml'
+    DEFAULT_SOURCES = 'lib/**/*.rb'
 
     # Public: Initializes a configuration instance
     #
     # yaml_path - optional path to the configuration file
     def initialize(yaml_path = YAML_PATH)
-      if File.exist?(yaml_path)
-        @_configuration = YAML.load_file(yaml_path).freeze
-      end
-    end
-
-    # Public: Returns if a custom configuration is present
-    #
-    # Examples
-    #
-    #   Pelusa.configuration.present? # => true
-    #
-    def present?
-      not @_configuration.nil?
+      @_configuration = if File.exist?(yaml_path)
+        YAML.load_file(yaml_path)
+      else
+        {}
+      end.freeze
     end
 
     # Public: Returns custom configuration for the given lint
@@ -46,12 +38,7 @@ module Pelusa
     #   Pelusa.configuration.sources # => lib/**/*.rb
     #
     def sources
-      default = "lib/**/*.rb"
-      if present?
-        @_configuration.fetch('sources') { default }
-      else
-        default
-      end
+      @_configuration.fetch('sources') { DEFAULT_SOURCES }
     end
 
     # Public: Returns an Array of enabled lints
