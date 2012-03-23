@@ -25,10 +25,16 @@ module Pelusa
       def iterate_lines!(klass)
         iterator = Iterator.new do |node|
           if node.is_a?(Rubinius::AST::Send) && node.receiver.is_a?(Rubinius::AST::Send)
-            @violations << node.line
+            @violations << node.line unless white_listed?(node.receiver.name)
           end
         end
         Array(klass).each(&iterator)
+      end
+
+      def white_listed? method
+        [Class, Fixnum, Enumerable].any? do |enclosing_module|
+          enclosing_module.instance_methods.any? {|instance_method| instance_method == method }
+        end
       end
     end
   end
