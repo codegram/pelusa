@@ -14,7 +14,16 @@ module Pelusa
         _files = Dir["**/*.rb"]
       end
 
-      Pelusa.run(_files)
+      reporters = Pelusa.run(_files)
+
+      reporters.first.class.print_banner unless reporters.empty?
+
+      exit_code = 0
+      reporters.each do |reporter|
+        reporter.report
+        exit_code = 1 unless reporter.successful?
+      end
+      exit_code
     end
 
     def files
