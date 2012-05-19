@@ -36,6 +36,22 @@ RUBY
             analysis.failed?.must_equal true
           end
         end
+
+        describe 'when class define method named eval' do
+          it 'return successful analysis' do
+            klass_str = <<RUBY
+class WithEvalUse
+  def initialize
+    @other_obj = Object.new
+    @other_obj.eval "boom"
+  end
+end
+RUBY
+            klass = klass_str.to_ast
+            analysis = @lint.check(klass)
+            analysis.successful?.must_equal true
+          end
+        end
       end
     end
   end
