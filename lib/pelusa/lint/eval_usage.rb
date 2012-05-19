@@ -28,11 +28,13 @@ module Pelusa
 
       def iterate_lines!(klass)
         iterator = Iterator.new do |node|
-          if node.is_a?(Rubinius::AST::SendWithArguments) && node.name == :eval && node.receiver.is_a?(Rubinius::AST::Self)
-            @violations << node.line
-          end
+          @violations << node.line if eval_violation?(node)
         end
         Array(klass).each(&iterator)
+      end
+
+      def eval_violation?(node)
+        node.is_a?(Rubinius::AST::SendWithArguments) && node.name == :eval && node.receiver.is_a?(Rubinius::AST::Self)
       end
 
     end
