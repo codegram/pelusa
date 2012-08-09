@@ -7,6 +7,7 @@ require 'pelusa/lint/else_clauses'
 require 'pelusa/lint/properties'
 require 'pelusa/lint/collection_wrappers'
 require 'pelusa/lint/short_identifiers'
+require 'pelusa/lint/long_identifiers'
 require 'pelusa/lint/case_statements'
 require 'pelusa/lint/many_arguments'
 require 'pelusa/lint/eval_usage'
@@ -26,6 +27,7 @@ module Pelusa
         Properties,
         CollectionWrappers,
         ShortIdentifiers,
+        LongIdentifiers,
         ManyArguments,
         EvalUsage
       ]
