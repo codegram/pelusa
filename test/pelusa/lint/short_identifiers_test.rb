@@ -22,6 +22,21 @@ module Pelusa
           end
         end
 
+        describe 'when the class contains short identifier from reserved list' do
+          it 'returns a SuccessAnalysis' do
+            klass = """
+            class Foo
+              def initialize
+                id = 2
+                pp id
+              end
+            end""".to_ast
+
+            analysis = @lint.check(klass)
+            analysis.successful?.must_equal true
+          end
+        end
+
         describe 'when the class contains a short identifier' do
           it 'returns a FailureAnalysis' do
             klass = """

@@ -1,6 +1,8 @@
 module Pelusa
   module Lint
     class ShortIdentifiers
+      RESERVED_NAMES = ['p', 'pp', 'id']
+
       def initialize
         @violations = Set.new
       end
@@ -26,7 +28,7 @@ module Pelusa
         iterator = Iterator.new do |node|
           if node.respond_to?(:name)
             name = node.name.respond_to?(:name) ? node.name.name.to_s : node.name.to_s
-            if name =~ /[a-z]/ && name.length < 3 && !["p", "pp"].include?(name)
+            if name =~ /[a-z]/ && name.length < 3 && !RESERVED_NAMES.include?(name)
               next if name =~ /^[A-Z]/ # Ignore constants
               @violations << [name, node.line]
             end
