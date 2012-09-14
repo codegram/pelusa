@@ -29,11 +29,7 @@ module Pelusa
               __iterate = Iterator.new do |node|
                 if body = get_body_from_node[node]
                   if node.line != [body].flatten.first.line
-                    if body.is_a?(Array)
-                      @violations.merge body.map(&:line)
-                    else
-                      @violations << body.line
-                    end
+                    @violations.merge Array(body).map(&:line)
                   end
                 end
               end
