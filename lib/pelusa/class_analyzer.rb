@@ -14,6 +14,11 @@ class Pelusa::ClassAnalyzer
     name.name
   end
 
+  # Public: Returns the type of container being examined (class or module).
+  def type
+    @klass.is_a?(Rubinius::AST::Class) ? "class" : "module"
+  end
+
   # Public: Analyzes a class with a series of lints.
   #
   # lints - The lints to check for.

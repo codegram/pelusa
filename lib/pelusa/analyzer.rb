@@ -19,9 +19,10 @@ module Pelusa
       reports = extract_classes(ast).map do |klass|
         class_analyzer = ClassAnalyzer.new(klass)
         class_name     = class_analyzer.class_name
+        type           = class_analyzer.type
         analysis       = class_analyzer.analyze(@lints)
 
-        Report.new(class_name, analysis)
+        Report.new(class_name, type, analysis)
       end
       @reporter.reports = reports
       @reporter
