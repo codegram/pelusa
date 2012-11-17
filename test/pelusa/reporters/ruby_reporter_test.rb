@@ -10,8 +10,8 @@ module Pelusa
         okay = SuccessfulAnalysis.new("Is below 50 lines")
 
         @reports =  [
-          Report.new("Foo", [ too_many_lines ]),
-          Report.new("Bar", [ okay ])
+          Report.new("Foo", "class", [ too_many_lines ]),
+          Report.new("Bar", "module", [ okay ])
         ]
 
         @reporter = RubyReporter.new('foo.rb')
