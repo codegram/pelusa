@@ -21,6 +21,20 @@ module Pelusa
           @analyzer.class_name.must_equal "Foo"
         end
       end
+
+      describe "#type" do
+        it "returns the type module for modules" do
+          # hacky!
+          @klass.stubs(:is_a?).with(Rubinius::AST::Class).returns(true)
+          @analyzer.type.must_equal "class"
+        end
+
+        it "returns the type module for modules" do
+          # hacky!
+          @klass.stubs(:is_a?).with(Rubinius::AST::Class).returns(false)
+          @analyzer.type.must_equal "module"
+        end
+      end
     end
   end
 end

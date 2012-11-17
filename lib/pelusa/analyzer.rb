@@ -19,9 +19,10 @@ module Pelusa
       reports = extract_classes(ast).map do |klass|
         class_analyzer = ClassAnalyzer.new(klass)
         class_name     = class_analyzer.class_name
+        type           = class_analyzer.type
         analysis       = class_analyzer.analyze(@lints)
 
-        Report.new(class_name, analysis)
+        Report.new(class_name, type, analysis)
       end
       @reporter.reports = reports
       @reporter
@@ -39,7 +40,9 @@ module Pelusa
     def extract_classes(ast)
       classes = []
       class_iterator = Iterator.new do |node|
-        classes << node if node.is_a?(Rubinius::AST::Class)
+        if node.is_a?(Rubinius::AST::Class) || node.is_a?(Rubinius::AST::Module)
+          classes << node
+        end
       end
       Array(ast).each(&class_iterator)
       classes
