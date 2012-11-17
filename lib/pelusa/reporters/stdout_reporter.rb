@@ -21,7 +21,7 @@ module Pelusa
     def print_report(class_report)
       class_name = class_report.class_name
 
-      puts "  class #{class_name}"
+      puts "  #{class_report.type} #{class_name}"
 
       analyses = class_report.analyses
       analyses.each do |analysis|
