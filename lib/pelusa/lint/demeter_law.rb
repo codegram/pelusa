@@ -31,9 +31,37 @@ module Pelusa
         Array(klass).each(&iterator)
       end
 
+      # Internal: Default modules whose methods are whitelisted.
+      DEFAULT_WHITELIST = [Class, Fixnum, Enumerable]
+
+      # Internal: Methods on these common, fundamental classes and modules are
+      # allowed to be called on other objects.
+      #
+      # Note: this doesn't currently work with namespaced objects, but would be
+      # easy to extend.
+      #
+      # Returns an array of classes specified in .pelusa.yml (a comma-separated
+      # list of class names) or the default values above.
+      def whitelist_sources
+        if whitelist = Pelusa.configuration['DemeterLaw']['whitelist']
+          whitelist.split(",").map {|k| Kernel.const_get(k.strip)}
+        else
+          DEFAULT_WHITELIST
+        end
+      end
+
+      # Internal: Allow conversion methods -- matching /^(to_|as_)/ to violate
+      # the law of Demeter.
+      def allow_conversions?
+        Pelusa.configuration['DemeterLaw'].fetch('allow_conversions', false)
+      end
+
       def white_listed? method
-        [Class, Fixnum, Enumerable].any? do |enclosing_module|
-          enclosing_module.instance_methods.any? {|instance_method| instance_method == method }
+        whitelist_sources.any? do |enclosing_module|
+          enclosing_module.instance_methods.any? do |instance_method|
+            instance_method == method or
+              allow_conversions? && instance_method =~ /^(to_|as_)/
+          end
         end
       end
     end
