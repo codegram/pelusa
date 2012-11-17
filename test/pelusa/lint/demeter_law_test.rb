@@ -47,36 +47,92 @@ module Pelusa
             end""".to_ast
 
             analysis = @lint.check(klass)
-            analysis.successful?.must_equal true              
+            analysis.successful?.must_equal true
           end
         end
 
-        describe 'when chaining operations on an Enumerable' do
-          it 'returns a SuccessAnalysis' do
+        describe 'when chaining whitelisted operations' do
+          it 'returns a SuccessAnalysis for chained operations from Enumerable' do
             klass = """
             class Foo
               def execute
-                [1,2,3].map(&:object_id).map(&:object_id)
+                [1,2,3].map(&:object_id).each {|i| i}
               end
             end""".to_ast
 
             analysis = @lint.check(klass)
-            analysis.successful?.must_equal true              
+            analysis.successful?.must_equal true
+          end
+
+          it 'returns a SuccessAnalysis when chaining methods from Fixnum' do
+            klass = """
+            class Foo
+              def execute
+                1 + 2 + 3 + 4
+              end
+            end""".to_ast
+
+            analysis = @lint.check(klass)
+            analysis.successful?.must_equal true
+          end
+
+          it 'returns a SuccessAnalysis for chained operations from Object' do
+            klass = """
+            class Foo
+              def execute
+                Object.new.to_s.inspect
+              end
+            end""".to_ast
+
+            analysis = @lint.check(klass)
+            analysis.successful?.must_equal true
+          end
+
+          it 'returns a SuccessAnalysis for chained operations from optional sources' do
+            Pelusa.configuration.stubs(:[]).with("DemeterLaw").returns(
+              {"whitelist" => "Object, Kernel, Hash, Enumerable"}
+            )
+
+            klass = """
+            class Foo
+              def execute
+                {'a' => 2}.merge.each_pair {|k, v|}
+              end
+            end""".to_ast
+
+            analysis = @lint.check(klass)
+            analysis.successful?.must_equal true
           end
         end
-      end
 
-      describe 'when chaining Fixnum operations' do
-        it 'returns a SuccessAnalysis' do
-          klass = """
-          class Foo
-            def execute
-              1 + 2 + 3 + 4
-            end
-          end""".to_ast
+        describe 'conversions' do
+          it 'returns a SuccessAnalysis for conversion operations if allowed' do
+            Pelusa.configuration.stubs(:[]).with("DemeterLaw").returns(
+              {"allow_conversions" => true}
+            )
 
-          analysis = @lint.check(klass)
-          analysis.successful?.must_equal true              
+            klass = """
+            class Foo
+              def execute
+                {'a' => 2}.merge({}).to_hash.as_json
+              end
+            end""".to_ast
+
+            analysis = @lint.check(klass)
+            analysis.successful?.must_equal true
+          end
+
+          it 'returns a FailureAnalysis for conversions if not allowed' do
+            klass = """
+            class Foo
+              def execute
+                {'a' => 2}.merge({}).to_hash
+              end
+            end""".to_ast
+
+            analysis = @lint.check(klass)
+            analysis.successful?.must_equal false
+          end
         end
       end
     end
