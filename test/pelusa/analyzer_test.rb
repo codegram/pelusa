@@ -16,6 +16,12 @@ module Pelusa
               321
             end
           end
+
+          module Baz
+            def bar
+              2.7
+            end
+          end
         """.to_ast
 
         lints = stub
@@ -27,6 +33,7 @@ module Pelusa
         result[:filename].must_equal "foo.rb"
         result[:Foo]["Is below 50 lines"][:status].must_equal "successful"
         result[:Bar]["Is below 50 lines"][:status].must_equal "successful"
+        result[:Baz]["Is below 50 lines"][:status].must_equal "successful"
       end
     end
   end
