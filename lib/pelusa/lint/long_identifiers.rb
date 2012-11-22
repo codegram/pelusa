@@ -6,7 +6,6 @@ module Pelusa
       end
 
       def check(klass)
-        initialize
         iterate_lines!(klass)
 
         return SuccessfulAnalysis.new(name) if @violations.empty?
@@ -27,16 +26,14 @@ module Pelusa
       end
 
       def iterate_lines!(klass)
-        iterator = Iterator.new do |node|
+        ClassAnalyzer.walk(klass) do |node|
           if node.respond_to?(:name)
             name = node.name.respond_to?(:name) ? node.name.name.to_s : node.name.to_s
             if name =~ /[a-z]/ && name.length > limit
-              next if name =~ /^[A-Z]/ # Ignore constants
-              @violations << [name, node.line]
+              @violations << [name, node.line] unless name =~ /^[A-Z]/ # Ignore constants
             end
           end
         end
-        Array(klass).each(&iterator)
       end
 
       def formatted_violations

@@ -6,7 +6,6 @@ module Pelusa
       end
 
       def check(klass)
-        initialize
         iterate_lines!(klass)
 
         return SuccessfulAnalysis.new(name) if @violations.empty?
@@ -25,7 +24,7 @@ module Pelusa
       def iterate_lines!(klass)
         array_assignments = {}
 
-        iterator = Iterator.new do |node|
+        ClassAnalyzer.walk(klass) do |node|
           if node.is_a?(Rubinius::AST::InstanceVariableAssignment)
             # if it's an instance variable assignment, it's a violation
             # unless it's an array assignment
@@ -40,7 +39,6 @@ module Pelusa
             @violations << node.line
           end
         end
-        Array(klass).each(&iterator)
       end
     end
   end
