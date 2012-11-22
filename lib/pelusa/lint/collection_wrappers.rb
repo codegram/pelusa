@@ -22,22 +22,30 @@ module Pelusa
       end
 
       def iterate_lines!(klass)
-        array_assignment = nil
+        # the array of actual assignment nodes -- we only want to assign once
+        array_assignments = {}
+        # the name of all the assigned arrays, no others allowed
+        array_values = {}
 
         ClassAnalyzer.walk(klass) do |node|
           if node.is_a?(Rubinius::AST::InstanceVariableAssignment) &&
             (node.value.is_a?(Rubinius::AST::ArrayLiteral) ||
              node.value.is_a?(Rubinius::AST::EmptyArray))
-            array_assignment = node
+            array_assignments[node] = true
+            array_values[node.name] = true
           end
         end
 
-        if array_assignment
+        unless array_assignments.empty?
           ClassAnalyzer.walk(klass) do |node|
-            unless node == array_assignment
+            # if this is where we assign the node for the first time, good
+            unless array_assignments[node]
+              # otherwise, if it's an instance variable assignment, verboten!
               if node.is_a?(Rubinius::AST::InstanceVariableAssignment)
                 @violations << node.line
-              elsif node.is_a?(Rubinius::AST::InstanceVariableAccess) && node.name != array_assignment.name
+              # or if we access any other ivars
+              elsif node.is_a?(Rubinius::AST::InstanceVariableAccess) &&
+                !array_values[node.name]
                 @violations << node.line
               end
             end
