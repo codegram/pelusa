@@ -25,4 +25,15 @@ class Pelusa::ClassAnalyzer
       lint.check(@klass)
     end
   end
+
+  # Public: Walk a node, analyzing it as it goes.
+  #
+  # block - supply a block that will be executed as the node gets walked.
+  def self.walk(start_node)
+    raise ArgumentError, "Walk requires a block!" unless block_given?
+    start_node.walk do |continue, node|
+      yield(node)
+      true
+    end
+  end
 end
