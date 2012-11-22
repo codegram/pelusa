@@ -23,26 +23,23 @@ module Pelusa
       end
 
       def iterate_lines!(klass)
-        array_assignment = nil
-
-        get_array_assignment = Iterator.new do |node|
-          if node.is_a?(Rubinius::AST::InstanceVariableAssignment) &&
-            (node.value.is_a?(Rubinius::AST::ArrayLiteral) ||
-            node.value.is_a?(Rubinius::AST::EmptyArray))
-              array_assignment = node
-          end
-        end
+        array_assignments = {}
 
         iterator = Iterator.new do |node|
-          next if node == array_assignment || !array_assignment
-
           if node.is_a?(Rubinius::AST::InstanceVariableAssignment)
-            @violations << node.line
-          elsif node.is_a?(Rubinius::AST::InstanceVariableAccess) && node.name != array_assignment.name
+            # if it's an instance variable assignment, it's a violation
+            # unless it's an array assignment
+            if (node.value.is_a?(Rubinius::AST::ArrayLiteral) ||
+              node.value.is_a?(Rubinius::AST::EmptyArray))
+              array_assignments[node.name] = true
+            else
+              @violations << node.line
+            end
+          elsif node.is_a?(Rubinius::AST::InstanceVariableAccess) &&
+              !array_assignments[node.name]
             @violations << node.line
           end
         end
-        Array(klass).each(&get_array_assignment)
         Array(klass).each(&iterator)
       end
     end
