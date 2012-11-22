@@ -6,7 +6,6 @@ module Pelusa
       end
 
       def check(klass)
-        initialize
         iterate_lines!(klass)
 
         return SuccessfulAnalysis.new(name) if lines < limit
@@ -31,10 +30,9 @@ module Pelusa
       end
 
       def iterate_lines!(klass)
-        iterator = Iterator.new do |node|
+        ClassAnalyzer.walk(klass) do |node|
           @lines << node.line if node.respond_to?(:line)
         end
-        Array(klass).each(&iterator)
       end
     end
   end

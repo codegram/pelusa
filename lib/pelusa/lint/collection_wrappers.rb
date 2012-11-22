@@ -6,7 +6,6 @@ module Pelusa
       end
 
       def check(klass)
-        initialize
         iterate_lines!(klass)
 
         return SuccessfulAnalysis.new(name) if @violations.empty?
@@ -25,25 +24,25 @@ module Pelusa
       def iterate_lines!(klass)
         array_assignment = nil
 
-        get_array_assignment = Iterator.new do |node|
+        ClassAnalyzer.walk(klass) do |node|
           if node.is_a?(Rubinius::AST::InstanceVariableAssignment) &&
             (node.value.is_a?(Rubinius::AST::ArrayLiteral) ||
-            node.value.is_a?(Rubinius::AST::EmptyArray))
-              array_assignment = node
+             node.value.is_a?(Rubinius::AST::EmptyArray))
+            array_assignment = node
           end
         end
 
-        iterator = Iterator.new do |node|
-          next if node == array_assignment || !array_assignment
-
-          if node.is_a?(Rubinius::AST::InstanceVariableAssignment)
-            @violations << node.line
-          elsif node.is_a?(Rubinius::AST::InstanceVariableAccess) && node.name != array_assignment.name
-            @violations << node.line
+        if array_assignment
+          ClassAnalyzer.walk(klass) do |node|
+            unless node == array_assignment
+              if node.is_a?(Rubinius::AST::InstanceVariableAssignment)
+                @violations << node.line
+              elsif node.is_a?(Rubinius::AST::InstanceVariableAccess) && node.name != array_assignment.name
+                @violations << node.line
+              end
+            end
           end
         end
-        Array(klass).each(&get_array_assignment)
-        Array(klass).each(&iterator)
       end
     end
   end
