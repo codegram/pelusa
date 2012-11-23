@@ -3,7 +3,6 @@
 module Pelusa
   module Lint
     class EvalUsage
-
       def initialize
         @violations = Set.new
       end
@@ -27,10 +26,9 @@ module Pelusa
       end
 
       def iterate_lines!(klass)
-        iterator = Iterator.new do |node|
+        ClassAnalyzer.walk(klass) do |node|
           @violations << node.line if eval_violation?(node)
         end
-        Array(klass).each(&iterator)
       end
 
       def eval_violation?(node)

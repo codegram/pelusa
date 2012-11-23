@@ -24,8 +24,6 @@ require 'pelusa/lint'
 require 'pelusa/analysis'
 require 'pelusa/class_analyzer'
 require 'pelusa/report'
-require 'pelusa/iterator'
-
 
 require 'pelusa/reporters/reporter'
 require 'pelusa/reporters/stdout_reporter'

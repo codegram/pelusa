@@ -6,7 +6,6 @@ module Pelusa
       end
 
       def check(klass)
-        initialize
         iterate_lines!(klass)
 
         return SuccessfulAnalysis.new(name) if @violations.empty?
@@ -23,7 +22,7 @@ module Pelusa
       end
 
       def iterate_lines!(klass)
-        iterator = Iterator.new do |node|
+        ClassAnalyzer.walk(klass) do |node|
           if node.is_a?(Rubinius::AST::If)
             has_body = node.body && !node.body.is_a?(Rubinius::AST::NilLiteral)
             has_else = node.else && !node.else.is_a?(Rubinius::AST::NilLiteral)
@@ -33,7 +32,6 @@ module Pelusa
             end
           end
         end
-        Array(klass).each(&iterator)
       end
     end
   end
