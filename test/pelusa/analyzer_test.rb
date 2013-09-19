@@ -3,37 +3,60 @@ require 'test_helper'
 module Pelusa
   describe Analyzer do
     describe '#analyze' do
-      before do
-        @ast = """
-          class Foo
-            def bar
-              123
+      describe 'with a multi-expression AST' do
+        before do
+          @ast = """
+            class Foo
+              def bar
+                123
+              end
             end
-          end
 
-          class Bar
-            def baz
-              321
+            class Bar
+              def baz
+                321
+              end
             end
-          end
 
-          module Baz
-            def bar
-              2.7
+            module Baz
+              def bar
+                2.7
+              end
             end
-          end
-        """.to_ast
+          """.to_ast
 
-        lints = stub
-        @analyzer = Analyzer.new([Lint::LineRestriction], RubyReporter, "foo.rb")
+          lints = stub
+          @analyzer = Analyzer.new([Lint::LineRestriction], RubyReporter, "foo.rb")
+        end
+
+        it 'analyzes an ast and returns a report' do
+          result = @analyzer.analyze(@ast).report
+          result[:filename].must_equal "foo.rb"
+          result[:Foo]["Is below 50 lines"][:status].must_equal "successful"
+          result[:Bar]["Is below 50 lines"][:status].must_equal "successful"
+          result[:Baz]["Is below 50 lines"][:status].must_equal "successful"
+        end
       end
 
-      it 'analyzes an ast and returns a report' do
-        result = @analyzer.analyze(@ast).report
-        result[:filename].must_equal "foo.rb"
-        result[:Foo]["Is below 50 lines"][:status].must_equal "successful"
-        result[:Bar]["Is below 50 lines"][:status].must_equal "successful"
-        result[:Baz]["Is below 50 lines"][:status].must_equal "successful"
+      describe 'with a single-expression AST' do
+        before do
+          @ast = """
+            class Foo
+              def bar
+                123
+              end
+            end
+          """.to_ast
+
+          lints = stub
+          @analyzer = Analyzer.new([Lint::LineRestriction], RubyReporter, "foo.rb")
+        end
+
+        it 'analyzes an ast and returns a report' do
+          result = @analyzer.analyze(@ast).report
+          result[:filename].must_equal "foo.rb"
+          result[:Foo]["Is below 50 lines"][:status].must_equal "successful"
+        end
       end
     end
   end

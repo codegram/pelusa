@@ -39,6 +39,10 @@ module Pelusa
     # Returns an Array of Class nodes.
     def extract_classes(ast)
       classes = []
+      if ast.is_a?(Rubinius::AST::Class) || ast.is_a?(Rubinius::AST::Module)
+        classes << ast
+      end
+
       ast.walk do |continue, node|
         if node.is_a?(Rubinius::AST::Class) || node.is_a?(Rubinius::AST::Module)
           classes << node
