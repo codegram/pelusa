@@ -23,7 +23,7 @@ module Pelusa
 
       def iterate_lines!(klass)
         ClassAnalyzer.walk(klass) do |node|
-          if node.is_a?(Rubinius::AST::Case)
+          if node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::Case)
             @violations << node.line
           end
         end

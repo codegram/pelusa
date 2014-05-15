@@ -25,13 +25,13 @@ module Pelusa
       describe "#type" do
         it "returns the type module for modules" do
           # hacky!
-          @klass.stubs(:is_a?).with(Rubinius::AST::Class).returns(true)
+          @klass.stubs(:is_a?).with(Rubinius::ToolSets::Runtime::ToolSet::AST::Class).returns(true)
           @analyzer.type.must_equal "class"
         end
 
         it "returns the type module for modules" do
           # hacky!
-          @klass.stubs(:is_a?).with(Rubinius::AST::Class).returns(false)
+          @klass.stubs(:is_a?).with(Rubinius::ToolSets::Runtime::ToolSet::AST::Class).returns(false)
           @analyzer.type.must_equal "module"
         end
       end

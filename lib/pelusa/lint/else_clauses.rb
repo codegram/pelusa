@@ -23,9 +23,9 @@ module Pelusa
 
       def iterate_lines!(klass)
         ClassAnalyzer.walk(klass) do |node|
-          if node.is_a?(Rubinius::AST::If)
-            has_body = node.body && !node.body.is_a?(Rubinius::AST::NilLiteral)
-            has_else = node.else && !node.else.is_a?(Rubinius::AST::NilLiteral)
+          if node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::If)
+            has_body = node.body && !node.body.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::NilLiteral)
+            has_else = node.else && !node.else.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::NilLiteral)
 
             if has_body && has_else
               @violations << node.else.line

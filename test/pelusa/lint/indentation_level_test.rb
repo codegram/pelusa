@@ -10,14 +10,14 @@ module Pelusa
       describe '#check' do
         describe 'when the class has one method with one or less indentation levels' do
           it 'returns a SuccessAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               def initialize
                 if 9
                   3
                 end
               end
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.successful?.must_equal true
@@ -26,7 +26,7 @@ module Pelusa
 
         describe 'when the class has one method with more than one indentation level' do
           it 'returns a FailureAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               def initialize
                 if 9
@@ -35,7 +35,7 @@ module Pelusa
                   end
                 end
               end
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.failed?.must_equal true
@@ -44,7 +44,7 @@ module Pelusa
 
         describe "when there is method which produces nested list" do
           it 'returns a FailureAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               def initialize
                 if test
@@ -55,7 +55,7 @@ module Pelusa
                   ]
                 end
               end
-            end""".to_ast
+            end"""
 
             analysis = @lint.check klass
             analysis.failed?.must_equal true

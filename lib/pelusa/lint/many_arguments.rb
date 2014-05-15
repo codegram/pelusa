@@ -27,7 +27,7 @@ module Pelusa
 
       def iterate_lines!(klass)
         ClassAnalyzer.walk(klass) do |node|
-          if node.is_a?(Rubinius::AST::Define) && node.arguments.total_args > limit
+          if node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::Define) && node.arguments.total_args > limit
             @violations << node.name
           end
         end

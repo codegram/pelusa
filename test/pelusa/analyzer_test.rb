@@ -5,7 +5,7 @@ module Pelusa
     describe '#analyze' do
       describe 'with a multi-expression AST' do
         before do
-          @ast = """
+          @ast = Pelusa.to_ast """
             class Foo
               def bar
                 123
@@ -23,7 +23,7 @@ module Pelusa
                 2.7
               end
             end
-          """.to_ast
+          """
 
           lints = stub
           @analyzer = Analyzer.new([Lint::LineRestriction], RubyReporter, "foo.rb")
@@ -40,13 +40,13 @@ module Pelusa
 
       describe 'with a single-expression AST' do
         before do
-          @ast = """
+          @ast = Pelusa.to_ast """
             class Foo
               def bar
                 123
               end
             end
-          """.to_ast
+          """
 
           lints = stub
           @analyzer = Analyzer.new([Lint::LineRestriction], RubyReporter, "foo.rb")

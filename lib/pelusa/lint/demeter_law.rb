@@ -23,7 +23,7 @@ module Pelusa
 
       def iterate_lines!(klass)
         ClassAnalyzer.walk(klass) do |node|
-          if node.is_a?(Rubinius::AST::Send) && node.receiver.is_a?(Rubinius::AST::Send)
+          if node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::Send) && node.receiver.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::Send)
             @violations << node.line unless white_listed?(node.receiver.name)
           end
         end

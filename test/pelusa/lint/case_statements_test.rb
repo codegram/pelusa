@@ -10,12 +10,12 @@ module Pelusa
       describe '#check' do
         describe 'when the class does not use switch statements' do
           it 'returns a SuccessAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               def initialize
                 return nil
               end
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.successful?.must_equal true
@@ -24,14 +24,14 @@ module Pelusa
 
         describe 'when the class uses case statements' do
           it 'returns a FailureAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               def initialize
                 case foo
                   when bar
                 end
               end
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.failed?.must_equal true

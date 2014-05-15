@@ -10,11 +10,11 @@ module Pelusa
       describe '#check' do
         describe 'when the class has less than 50 lines' do
           it 'returns a SuccessAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               attr_accessor :foo
               attr_accessor :bar
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.successful?.must_equal true
@@ -23,12 +23,12 @@ module Pelusa
 
         describe 'when the class has more than 50 lines' do
           it 'returns a FailureAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               attr_accessor :foo
               #{"\n" * 80}
               attr_accessor :bar
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.failed?.must_equal true

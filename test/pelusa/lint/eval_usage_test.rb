@@ -16,7 +16,7 @@ class WithoutEval
   end
 end
 RUBY
-            klass = klass_str.to_ast
+            klass = Pelusa.to_ast klass_str
             analysis = @lint.check(klass)
             analysis.successful?.must_equal true
           end
@@ -31,7 +31,7 @@ class WithEval
   end
 end
 RUBY
-            klass = klass_str.to_ast
+            klass = Pelusa.to_ast klass_str
             analysis = @lint.check(klass)
             analysis.failed?.must_equal true
           end
@@ -47,7 +47,7 @@ class WithEvalUse
   end
 end
 RUBY
-            klass = klass_str.to_ast
+            klass = Pelusa.to_ast klass_str
             analysis = @lint.check(klass)
             analysis.successful?.must_equal true
           end
