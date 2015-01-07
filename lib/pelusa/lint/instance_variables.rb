@@ -27,7 +27,7 @@ module Pelusa
 
       def iterate_lines!(klass)
         ClassAnalyzer.walk(klass) do |node|
-          if node.is_a?(Rubinius::AST::InstanceVariableAccess) || node.is_a?(Rubinius::AST::InstanceVariableAssignment)
+          if node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::InstanceVariableAccess) || node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::InstanceVariableAssignment)
             @ivars << node.name
           end
         end

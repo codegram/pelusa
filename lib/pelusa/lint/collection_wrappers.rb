@@ -28,9 +28,9 @@ module Pelusa
         array_values = {}
 
         ClassAnalyzer.walk(klass) do |node|
-          if node.is_a?(Rubinius::AST::InstanceVariableAssignment) &&
-            (node.value.is_a?(Rubinius::AST::ArrayLiteral) ||
-             node.value.is_a?(Rubinius::AST::EmptyArray))
+          if node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::InstanceVariableAssignment) &&
+            (node.value.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::ArrayLiteral) ||
+             node.value.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::EmptyArray))
             array_assignments[node] = true
             array_values[node.name] = true
           end
@@ -41,10 +41,10 @@ module Pelusa
             # if this is where we assign the node for the first time, good
             unless array_assignments[node]
               # otherwise, if it's an instance variable assignment, verboten!
-              if node.is_a?(Rubinius::AST::InstanceVariableAssignment)
+              if node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::InstanceVariableAssignment)
                 @violations << node.line
               # or if we access any other ivars
-              elsif node.is_a?(Rubinius::AST::InstanceVariableAccess) &&
+              elsif node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::InstanceVariableAccess) &&
                 !array_values[node.name]
                 @violations << node.line
               end

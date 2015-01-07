@@ -10,13 +10,13 @@ module Pelusa
       describe '#check' do
         describe 'when the class uses less than 3 ivars' do
           it 'returns a SuccessAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               def initialize
                 @foo = 1
                 @bar = 2
               end
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.successful?.must_equal true
@@ -25,14 +25,14 @@ module Pelusa
 
         describe 'when the class has more than 50 lines' do
           it 'returns a FailureAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               def initialize
                 @foo = 1
                 @bar = 2
                 @baz = 3
               end
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.failed?.must_equal true

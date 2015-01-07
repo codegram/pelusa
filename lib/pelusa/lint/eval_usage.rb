@@ -32,7 +32,7 @@ module Pelusa
       end
 
       def eval_violation?(node)
-        node.is_a?(Rubinius::AST::SendWithArguments) && node.name == :eval && node.receiver.is_a?(Rubinius::AST::Self)
+        node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::SendWithArguments) && node.name == :eval && node.receiver.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::Self)
       end
 
     end

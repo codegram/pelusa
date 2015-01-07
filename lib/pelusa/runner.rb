@@ -36,7 +36,7 @@ module Pelusa
     #
     # Returns a Rubinius::Melbourne parser.
     def parser
-      Rubinius::Melbourne19
+      ::Rubinius::ToolSets.current::ToolSet::Melbourne
     end
   end
 end

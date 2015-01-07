@@ -26,7 +26,7 @@ module Pelusa
         # contain > 1 indentation levels
         # this method totally fails the IndentationLevel level lint :P
         ClassAnalyzer.walk(klass) do |node|
-          if node.is_a?(Rubinius::AST::Define)
+          if node.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::Define)
             # we're inside a method body, so see if we indent anywhere
             ClassAnalyzer.walk(node) do |inner_node|
               if inner_body = get_body_from_node[inner_node]
@@ -53,7 +53,7 @@ module Pelusa
 
       def get_body_from_node
         lambda do |node|
-          if node.respond_to?(:body) && !node.body.is_a?(Rubinius::AST::NilLiteral)
+          if node.respond_to?(:body) && !node.body.is_a?(Rubinius::ToolSets::Runtime::ToolSet::AST::NilLiteral)
              node.body
           elsif node.respond_to?(:else)
              node.else

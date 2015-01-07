@@ -10,7 +10,7 @@ module Pelusa
       describe '#check' do
         describe 'when the class does not use getters, setters or properties' do
           it 'returns a SuccessAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               def initialize
                 @name = 'john'
@@ -19,7 +19,7 @@ module Pelusa
               def name
                 @name
               end
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.successful?.must_equal true
@@ -28,11 +28,11 @@ module Pelusa
 
         describe 'when the class uses getters, setters or properties' do
           it 'returns a FailureAnalysis' do
-            klass = """
+            klass = Pelusa.to_ast """
             class Foo
               attr_accessor :name
               attr_reader :foo
-            end""".to_ast
+            end"""
 
             analysis = @lint.check(klass)
             analysis.failed?.must_equal true
